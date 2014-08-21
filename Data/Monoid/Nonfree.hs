@@ -26,8 +26,8 @@
 -- @
 --
 -- This is because an expression like @f '<$>' x '<*>' y '<*>' z@ generates a
--- left-biased tree -- @(x '<>' y) '<>' z@ -- whereas the 'Foldable' instance makes a
--- right-biased tree -- @x '<>' (y '<>' z)@.
+-- left-biased tree -- @(x '<>' y) '<>' z@ -- whereas the 'Foldable' instance
+-- makes a right-biased tree -- @x '<>' (y '<>' z)@.
 --
 -- Due to the monoid laws, these sorts of issues are typically invisible unless
 -- you look for them. But they can make a performance difference.
@@ -37,7 +37,8 @@ module Data.Monoid.Nonfree (N(..), (◇), ε, toN, fromN) where
 import Control.Applicative
 import Data.Monoid
 import Data.Foldable (Foldable(foldMap))
-import Data.Traversable (Traversable(traverse, sequenceA), foldMapDefault, fmapDefault)
+import Data.Traversable (Traversable(traverse, sequenceA),
+                         foldMapDefault, fmapDefault)
 
 -- | Nonfree nonmonoid.
 data N a = N a | NEmpty | NAppend (N a) (N a)
@@ -61,7 +62,8 @@ instance Foldable N where
 instance Show a => Show (N a) where
   showsPrec n (N a) = showString "N " . showsPrec 11 a
   showsPrec n NEmpty = showString "ε"
-  showsPrec n (NAppend x y) = showParen (n > 0) $ showsPrec 1 x . showString " ◇ " . showsPrec 1 y
+  showsPrec n (NAppend x y) =
+    showParen (n > 0) $ showsPrec 1 x . showString " ◇ " . showsPrec 1 y
 
 -- | A synonym for 'mappend' ('<>').
 (◇) :: Monoid m => m -> m -> m
