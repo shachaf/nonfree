@@ -1,5 +1,5 @@
 name:          nonfree
-version:       0.1.0.2
+version:       0.1.0.3
 synopsis:      Free structures sans laws
 description:   Reified structures for debugging consumers of type classes.
 license:       MIT
@@ -11,4 +11,4 @@ cabal-version: >= 1.8
 
 library
   exposed-modules: Data.Monoid.Nonfree
-  build-depends:   base >= 4.6 && < 4.10
+  build-depends:   base >= 4.6 && < 5
