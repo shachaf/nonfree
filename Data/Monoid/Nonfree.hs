@@ -1,3 +1,4 @@
+{-# LANGUAGE CPP #-}
 -- | A free "monoid sans laws" type (i.e., a "free pointed magma") with an
 -- illegal 'Monoid' instance, intended for debugging.
 --
@@ -46,6 +47,11 @@ data N a = N a | NEmpty | NAppend (N a) (N a)
 instance Monoid (N a) where
   mempty = NEmpty
   mappend = NAppend
+
+#if MIN_VERSION_base(4,9,0)
+instance Semigroup (N a) where
+  (<>) = NAppend
+#endif
 
 instance Traversable N where
   traverse f (N x) = N <$> f x

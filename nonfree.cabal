@@ -1,5 +1,5 @@
 name:          nonfree
-version:       0.1.0.3
+version:       0.1.0.4
 synopsis:      Free structures sans laws
 description:   Reified structures for debugging consumers of type classes.
 license:       MIT
